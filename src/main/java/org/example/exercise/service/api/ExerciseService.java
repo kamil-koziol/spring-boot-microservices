@@ -1,4 +1,4 @@
-package org.example.exercise.service;
+package org.example.exercise.service.api;
 
 import org.example.exercise.entity.Exercise;
 
@@ -9,5 +9,6 @@ import java.util.UUID;
 public interface ExerciseService {
     public Optional<Exercise> findById(UUID id);
     public List<Exercise> getAll();
-    public void addExercise(Exercise exercise);
+    public void create(Exercise exercise);
+    public void deleteById(UUID uuid);
 }

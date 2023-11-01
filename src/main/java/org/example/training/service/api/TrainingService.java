@@ -1,4 +1,4 @@
-package org.example.training.service;
+package org.example.training.service.api;
 
 import org.example.training.entity.Training;
 
@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface TrainingService {
     public Optional<Training> findById(UUID id);
     public List<Training> getAll();
-    public void addTraining(Training training);
+    public void create(Training training);
 }
