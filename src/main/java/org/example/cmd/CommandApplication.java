@@ -1,9 +1,12 @@
 package org.example.cmd;
 
+import org.example.exercise.controller.api.ExerciseController;
+import org.example.exercise.dto.PatchExerciseRequest;
 import org.example.exercise.dto.PutExerciseRequest;
 import org.example.exercise.entity.BodyPart;
 import org.example.exercise.entity.Exercise;
 import org.example.exercise.service.api.ExerciseService;
+import org.example.training.controller.api.TrainingController;
 import org.example.training.entity.Training;
 import org.example.training.service.api.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +20,13 @@ import java.util.UUID;
 
 @Component
 public class CommandApplication implements CommandLineRunner {
+    private final ExerciseController exerciseController;
+    private final TrainingController trainingController;
 
-    public final TrainingService trainingService;
-    public final ExerciseService exerciseService;
     @Autowired
-    public CommandApplication(TrainingService trainingService, ExerciseService exerciseService) {
-        this.trainingService = trainingService;
-        this.exerciseService = exerciseService;
+    public CommandApplication(ExerciseController exerciseController, TrainingController trainingController) {
+        this.exerciseController = exerciseController;
+        this.trainingController = trainingController;
     }
     @Override
     public void run(String... args) throws Exception {
@@ -34,18 +37,21 @@ public class CommandApplication implements CommandLineRunner {
             command = scanner.next();
             switch (command) {
                 case "get_trainings" -> {
-                    trainingService.getAll().forEach(training -> {
+                    trainingController.getTrainings().getTrainings().forEach(training -> {
                         System.out.println(training);
                     });
                 }
+                case "get_training" -> {
+                    UUID uuid = UUID.fromString(scanner.next());
+                    System.out.println(trainingController.getTraining(uuid));
+                }
                 case "get_exercises" -> {
-                    exerciseService.getAll().forEach(exercise -> {
+                    exerciseController.getExercises().getExercises().forEach(exercise -> {
                         System.out.println(exercise);
                     });
                 }
                 case "put_exercise" -> {
                     UUID uuid = UUID.fromString(scanner.next());
-
                     PutExerciseRequest request = PutExerciseRequest.builder()
                             .name(scanner.next())
                             .bodyPart(BodyPart.valueOf(scanner.next()))
@@ -54,22 +60,23 @@ public class CommandApplication implements CommandLineRunner {
                             .training(UUID.fromString(scanner.next()))
                             .build();
 
-                    Optional<Training> training = trainingService.findById(request.getTraining());
-                    Exercise exercise = new Exercise().builder()
-                            .id(uuid)
-                            .name(request.getName())
-                            .description(request.getDescription())
-                            .bodyPart(request.getBodyPart())
-                            .training(training.get())
-                            .difficulty(request.getDifficulty())
+                    exerciseController.putExercise(uuid, request);
+                }
+
+                case "patch_exercise" -> {
+                    UUID id = UUID.fromString(scanner.next());
+
+                    PatchExerciseRequest request = PatchExerciseRequest.builder()
+                            .name(scanner.next())
+                            .description(scanner.next())
+                            .difficulty(scanner.nextInt())
                             .build();
 
-
-                    exerciseService.create(exercise);
+                    exerciseController.patchExercise(id, request);
                 }
                 case "delete_exercise" -> {
                     UUID uuid = UUID.fromString(scanner.next());
-                    exerciseService.deleteById(uuid);
+                    exerciseController.deleteExercise(uuid);
                 }
                 case "quit" -> {
                     break main_loop;
