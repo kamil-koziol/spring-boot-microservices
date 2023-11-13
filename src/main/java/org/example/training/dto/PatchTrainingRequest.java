@@ -7,4 +7,5 @@ import lombok.Data;
 @Data
 public class PatchTrainingRequest {
     String name;
+    String additionalInfo;
 }

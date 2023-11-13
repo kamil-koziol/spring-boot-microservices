@@ -10,4 +10,5 @@ import java.util.UUID;
 @Data
 public class PutTrainingRequest {
     String name;
+    String additionalInfo;
 }

@@ -23,7 +23,6 @@ public class GetExerciseResponse {
     public static class Training {
         private UUID id;
         private String name;
-
     }
 
     Training training;

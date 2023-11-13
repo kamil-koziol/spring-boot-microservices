@@ -1,15 +1,20 @@
 package org.example.training.controller.impl;
 
+import lombok.extern.java.Log;
 import org.example.training.controller.api.TrainingController;
 import org.example.training.dto.*;
 import org.example.training.entity.Training;
 import org.example.training.service.api.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
-@Controller
+@RestController
+@Log
 public class TrainingDefaultController implements TrainingController {
 
     private final TrainingService service;
@@ -21,7 +26,9 @@ public class TrainingDefaultController implements TrainingController {
 
     @Override
     public GetTrainingResponse getTraining(UUID id) {
-        return GetTrainingResponse.fromTraining(service.findById(id).get());
+        Training training = service.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return GetTrainingResponse.fromTraining(training);
     }
 
     @Override
