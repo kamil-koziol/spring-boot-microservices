@@ -48,7 +48,8 @@ public class TrainingDefaultController implements TrainingController {
 
     @Override
     public void patchTraining(UUID id, PatchTrainingRequest request) {
-        var training = service.findById(id).get();
+        Training training = service.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         training.setName(request.getName());
         service.create(training);
     }

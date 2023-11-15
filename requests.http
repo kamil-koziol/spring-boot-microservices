@@ -46,17 +46,14 @@ GET http://localhost:8080/api/trainings
 
 ### Get training
 
-GET http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c78a
+GET http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c79a
 
 ### Put training
 
 PUT http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c79a
 Content-Type: application/json
 
-{
-  "name": "nowy trening",
-  "additionalInfo": "test"
-}
+"nowy trening"
 
 
 ### Patch training
@@ -64,10 +61,7 @@ Content-Type: application/json
 PATCH http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c79a
 Content-Type: application/json
 
-{
-  "name": "nowy trening zmiana",
-  "additionalInfo": "test"
-}
+"nowy trening zmiana"
 
 ### Delete training
 
