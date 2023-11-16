@@ -28,7 +28,7 @@ public class InitializeData implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         Training t1 = Training.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.fromString("a113d87b-3271-43d4-b8bb-5f00d2d7c78a"))
                 .name("Chest + Triceps")
                 .exercises(new ArrayList<>())
                 .build();
@@ -122,7 +122,7 @@ public class InitializeData implements InitializingBean {
                 .build();
 
         Exercise e9 = Exercise.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.fromString("e813d87b-3271-43d4-b8bb-5f00d2d7c78a"))
                 .name("Biceps curls")
                 .training(t3)
                 .bodyPart(BodyPart.BICEPS)
@@ -139,7 +139,5 @@ public class InitializeData implements InitializingBean {
         exerciseService.create(e7);
         exerciseService.create(e8);
         exerciseService.create(e9);
-
-
     }
 }

@@ -21,7 +21,7 @@ public class Training implements Serializable {
     UUID id;
     String name;
 
-    @OneToMany(mappedBy = "training", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "training", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     List<Exercise> exercises;

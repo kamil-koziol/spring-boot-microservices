@@ -10,4 +10,5 @@ public interface TrainingService {
     public Optional<Training> findById(UUID id);
     public List<Training> getAll();
     public void create(Training training);
+    public void deleteById(UUID id);
 }

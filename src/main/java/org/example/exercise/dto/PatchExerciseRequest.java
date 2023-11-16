@@ -2,13 +2,14 @@ package org.example.exercise.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import org.example.exercise.entity.BodyPart;
 
 import java.util.UUID;
 
 @Builder
 @Data
-public class ExerciseDto {
-    UUID id;
+public class PatchExerciseRequest {
     String name;
-    String training;
+    int difficulty;
+    String description;
 }

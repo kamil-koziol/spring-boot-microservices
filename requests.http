@@ -1,0 +1,71 @@
+### File for testing endpoints
+
+### === Exercises
+
+### Get all exercises
+GET http://localhost:8080/api/exercises
+
+### Get exercise
+GET http://localhost:8080/api/exercises/3ec50d77-3fe9-4874-8edf-2df48ae27eca
+
+### Put exercise
+
+PUT http://localhost:8080/api/exercises/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Slick curl",
+  "bodyPart": "NECK",
+  "difficulty": 2,
+  "description": "Opis exercise",
+  "training": "a113d87b-3271-43d4-b8bb-5f00d2d7c78a"
+}
+
+
+### Patch exercise
+
+PATCH http://localhost:8080/api/exercises/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Slick curl",
+  "difficulty": 3,
+  "description": "Zmieniony opis exercise"
+}
+
+
+### Delete exercise
+
+DELETE http://localhost:8080/api/exercises/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+### Trainings
+
+### Get all trainings
+
+GET http://localhost:8080/api/trainings
+
+### Get training
+
+GET http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c79a
+
+### Put training
+
+PUT http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c79a
+Content-Type: application/json
+
+"nowy trening"
+
+
+### Patch training
+
+PATCH http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c79a
+Content-Type: application/json
+
+"nowy trening zmiana"
+
+### Delete training
+
+DELETE http://localhost:8080/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c78a
+
+
+

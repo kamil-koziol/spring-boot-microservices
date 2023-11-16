@@ -1,6 +1,7 @@
 package org.example.exercise.service.api;
 
 import org.example.exercise.entity.Exercise;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;

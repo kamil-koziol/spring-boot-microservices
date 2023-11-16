@@ -34,4 +34,9 @@ public class DefaultTrainingService implements TrainingService {
     public void create(Training training) {
         repository.save(training);
     }
+
+    @Override
+    public void deleteById(UUID id) {
+        repository.deleteById(id);
+    }
 }
