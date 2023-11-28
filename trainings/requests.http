@@ -1,0 +1,33 @@
+### File for testing endpoints
+
+### Trainings
+
+### Get all trainings
+
+GET http://localhost:8081/api/trainings
+
+### Get training
+
+GET http://localhost:8081/api/trainings/d113d87b-3271-43d4-b8bb-5f00d2d7c78a
+
+### Put training
+
+PUT http://localhost:8081/api/trainings/d113d87b-3271-43d4-b8bb-5f00d2d7c78a
+Content-Type: application/json
+
+"nowy trening"
+
+
+### Patch training
+
+PATCH http://localhost:8081/api/trainings/d113d87b-3271-43d4-b8bb-5f00d2d7c78a
+Content-Type: application/json
+
+"nowy trening zmiana"
+
+### Delete training
+
+DELETE http://localhost:8081/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c78a
+
+
+
