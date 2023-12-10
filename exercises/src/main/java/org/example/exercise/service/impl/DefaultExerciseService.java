@@ -32,8 +32,8 @@ public class DefaultExerciseService implements ExerciseService {
     }
 
     @Override
-    public void create(Exercise exercise) {
-        repository.save(exercise);
+    public Exercise create(Exercise exercise) {
+        return repository.save(exercise);
     }
 
     @Override

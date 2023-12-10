@@ -1,0 +1,37 @@
+<div class="p-20 h-full relative" *ngIf="exerciseForm">
+    <form [formGroup]="exerciseForm" class="flex flex-col gap-4 h-full" *ngIf="exercise" (ngSubmit)="handleSubmit($event)">
+        <div class="flex flex-col">
+            <label class="block mb-2 text-lg font-bold">Name</label>
+            <input type="text" class="p-3 rounded focus:border-purple-500 bg-slate-50" placeholder="Name"
+                formControlName="name" />
+        </div>
+
+        <div class="flex flex-col">
+            <label class="block mb-2 text-lg font-bold">Description</label>
+            <input type="text" class="p-3 rounded focus:border-purple-500 bg-slate-50" placeholder="Description"
+                formControlName="description" />
+        </div>
+
+        <div class="flex flex-col">
+            <label class="block mb-2 text-lg font-bold">Difficulty</label>
+            <input type="text" class="p-3 rounded focus:border-purple-500 bg-slate-50" placeholder="Difficulty"
+                formControlName="difficulty" />
+        </div>
+
+        <div class="flex flex-col">
+            <label class="block mb-2 text-lg font-bold">Body Part</label>
+            <p type="text" class="p-3 rounded focus:border-purple-500 bg-slate-50" 
+                 >{{exercise.bodyPart}}</p>
+        </div>
+
+        <div class="flex flex-col" *ngIf="training">
+            <label class="block mb-2 text-lg font-bold">Training</label>
+            <a [href]="'/trainings/' + training.id" class="p-3 rounded focus:border-purple-500 bg-slate-50 hover:underline">{{training.name}}</a>
+        </div>
+
+
+
+        <button *ngIf="editToggle" type="submit" class="mt-auto py-2 px-4 w-32 text-white bg-purple-500 rounded hover:bg-purple-600">Save</button>
+        <button *ngIf="!editToggle" (click)="enterEditMode()" class="mt-auto py-2 px-4 w-32 text-white bg-purple-500 rounded hover:bg-purple-600">Edit</button>
+    </form>
+</div>

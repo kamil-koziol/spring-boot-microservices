@@ -1,9 +1,7 @@
 package org.example.exercise.controller.api;
 
-import org.example.exercise.dto.GetExerciseResponse;
-import org.example.exercise.dto.GetExercisesResponse;
-import org.example.exercise.dto.PatchExerciseRequest;
-import org.example.exercise.dto.PutExerciseRequest;
+import org.example.exercise.dto.*;
+import org.example.exercise.entity.Exercise;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +27,7 @@ public interface ExerciseController {
 
     @PutMapping("/api/exercises/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    void putExercise(
+    PutExerciseResponse putExercise(
             @PathVariable("id") UUID id,
             @RequestBody PutExerciseRequest request
     );
