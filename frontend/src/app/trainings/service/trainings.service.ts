@@ -12,6 +12,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TrainingsService {
+  deleteTraining(id: string) {
+    return this.http.delete("/api/trainings/" + id);
+  }
   putTraining(id: string, values: any) {
     return this.http.put("/api/trainings/" + id, JSON.stringify(values), httpOptions);
   }

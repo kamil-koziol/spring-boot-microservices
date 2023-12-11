@@ -15,13 +15,22 @@ import { FilterTrainingsPipe } from '../../shared/filter-trainings.pipe';
   templateUrl: './training-list.component.html',
 })
 export class TrainingListComponent implements OnInit {
+
   constructor(private service: TrainingsService) {}
 
   filterText: string = "";
 
-  trainings!: Observable<Trainings>;
+  trainings: Trainings | undefined;
   
   public ngOnInit(): void {
-    this.trainings = this.service.getTrainings();
+    this.service.getTrainings().subscribe((trainings) => {
+      this.trainings = trainings;
+    });
+  }
+
+  deleteTraining(id: string) {
+    this.service.deleteTraining(id).subscribe((e)=> {
+      this.trainings!.trainings = this.trainings!.trainings.filter((item) => item.id !== id);
+    });
   }
 }
