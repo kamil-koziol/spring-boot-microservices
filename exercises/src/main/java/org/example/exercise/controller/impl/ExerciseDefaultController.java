@@ -2,21 +2,15 @@ package org.example.exercise.controller.impl;
 
 import lombok.extern.java.Log;
 import org.example.exercise.controller.api.ExerciseController;
-import org.example.exercise.dto.GetExerciseResponse;
-import org.example.exercise.dto.GetExercisesResponse;
-import org.example.exercise.dto.PatchExerciseRequest;
-import org.example.exercise.dto.PutExerciseRequest;
-import org.example.exercise.entity.BodyPart;
+import org.example.exercise.dto.*;
 import org.example.exercise.entity.Exercise;
 import org.example.exercise.service.api.ExerciseService;
 import org.example.training.entity.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -48,7 +42,7 @@ public class ExerciseDefaultController implements ExerciseController {
     }
 
     @Override
-    public void putExercise(UUID id, PutExerciseRequest request) {
+    public PutExerciseResponse putExercise(UUID id, PutExerciseRequest request) {
         Exercise exercise = new Exercise().builder()
                 .id(id)
                 .name(request.getName())
@@ -62,6 +56,7 @@ public class ExerciseDefaultController implements ExerciseController {
 
 
         service.create(exercise);
+        return PutExerciseResponse.fromExercise(exercise);
     }
 
     @Override

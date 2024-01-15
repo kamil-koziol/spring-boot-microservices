@@ -6,7 +6,7 @@
 GET http://localhost:8084/api/exercises
 
 ### Get exercise
-GET http://localhost:8084/api/exercises/aa4eec9f-15b4-4efe-9fbb-cbb4f342a0e9
+GET http://localhost:8084/api/exercises/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
 
 ### Put exercise
 
@@ -46,7 +46,7 @@ GET http://localhost:8084/api/trainings
 
 ### Get training
 
-GET http://localhost:8084/api/trainings/d113d87b-3271-43d4-b8bb-5f00d2d7c78a
+GET http://localhost:8084/api/trainings/a113d87b-3271-43d4-b8bb-5f00d2d7c78a
 
 ### Put training
 

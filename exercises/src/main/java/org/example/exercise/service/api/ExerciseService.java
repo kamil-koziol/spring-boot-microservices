@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface ExerciseService {
     public Optional<Exercise> findById(UUID id);
     public List<Exercise> getAll();
-    public void create(Exercise exercise);
+    public Exercise create(Exercise exercise);
     public void deleteById(UUID uuid);
     Optional<List<Exercise>> findAllByTraining(UUID trainingId);
 }

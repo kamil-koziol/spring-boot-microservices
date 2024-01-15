@@ -18,6 +18,8 @@ public class GetExercisesResponse {
     public static class Exercise {
         UUID id;
         String name;
+
+        UUID trainingId;
     }
 
     @Singular
@@ -27,7 +29,7 @@ public class GetExercisesResponse {
         var response = GetExercisesResponse.builder();
 
         var exercisesDto = exercises.stream().map(exercise -> {
-            return response.exercise(new Exercise(exercise.getId(), exercise.getName()));
+            return response.exercise(new Exercise(exercise.getId(), exercise.getName(), exercise.getTraining().getId()));
         }).toList();
 
         return response.build();
