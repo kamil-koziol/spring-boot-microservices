@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+  mysql-container-exercises:
+    image: mysql:latest
+    container_name: mysql-container-exercises
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gymapp
+    volumes:
+      - mysql-container-exercises-volume:/var/lib/mysql
+
+  aui-exercises:
+    image: exercises:1.0.0
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container-exercises:3306/gymapp
+      SPRING_DATASOURCE_DRIVERCLASSNAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - mysql-container-exercises
+
+  mysql-container-trainings:
+    image: mysql:latest
+    container_name: mysql-container-trainings
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gymapp
+    volumes:
+      - mysql-container-trainings-volume:/var/lib/mysql
+
+  aui-trainings:
+    image: trainings:1.0.0
+    restart: always
+    environment:
+      ZIUT_EXERCISES_URL: "http://aui-exercises:8080"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container-trainings:3306/gymapp
+      SPRING_DATASOURCE_DRIVERCLASSNAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - mysql-container-trainings
+
+  aui-gateway:
+    image: gateway:1.0.0
+    restart: always
+    environment:
+      ZIUT_GATEWAY_HOST: "aui-gateway:8080"
+      ZIUT_EXERCISES_URL: "http://aui-exercises:8080"
+      ZIUT_TRAININGS_URL: "http://aui-trainings:8080"
+
+  aui-frontend:
+    image: aui-frontend:1.0.0
+    restart: always
+    environment:
+      API_URL: http://aui-gateway:8080/api
+    ports:
+      - "4200:80"
+volumes:
+  mysql-container-exercises-volume:
+  mysql-container-trainings-volume:
+
