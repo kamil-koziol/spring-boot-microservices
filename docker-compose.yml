@@ -1,6 +1,12 @@
 version: "3"
 
 services:
+  aui-eureka:
+    image: eureka:1.0.0
+    restart: always
+    environment:
+      SERVER_PORT: 8080
+
   mysql-container-exercises:
     image: mysql:latest
     container_name: mysql-container-exercises
@@ -14,13 +20,32 @@ services:
     image: exercises:1.0.0
     restart: always
     environment:
+      SERVER_PORT: 8080
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container-exercises:3306/gymapp
       SPRING_DATASOURCE_DRIVERCLASSNAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://aui-eureka:8080/eureka
+
     depends_on:
       - mysql-container-exercises
+      - aui-eureka
+
+  aui-exercises-2:
+    image: exercises:1.0.0
+    restart: always
+    environment:
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container-exercises:3306/gymapp
+      SPRING_DATASOURCE_DRIVERCLASSNAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://aui-eureka:8080/eureka
+    depends_on:
+      - mysql-container-exercises
+      - aui-eureka
 
   mysql-container-trainings:
     image: mysql:latest
@@ -31,26 +56,46 @@ services:
     volumes:
       - mysql-container-trainings-volume:/var/lib/mysql
 
+
   aui-trainings:
     image: trainings:1.0.0
     restart: always
     environment:
-      ZIUT_EXERCISES_URL: "http://aui-exercises:8080"
+      SERVER_PORT: 8080
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container-trainings:3306/gymapp
       SPRING_DATASOURCE_DRIVERCLASSNAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://aui-eureka:8080/eureka
     depends_on:
       - mysql-container-trainings
+      - aui-eureka
+
+  aui-trainings2:
+    image: trainings:1.0.0
+    restart: always
+    environment:
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container-trainings:3306/gymapp
+      SPRING_DATASOURCE_DRIVERCLASSNAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://aui-eureka:8080/eureka
+    depends_on:
+      - mysql-container-trainings
+      - aui-eureka
 
   aui-gateway:
     image: gateway:1.0.0
     restart: always
     environment:
+      SERVER_PORT: 8080
       ZIUT_GATEWAY_HOST: "aui-gateway:8080"
-      ZIUT_EXERCISES_URL: "http://aui-exercises:8080"
-      ZIUT_TRAININGS_URL: "http://aui-trainings:8080"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://aui-eureka:8080/eureka
+    depends_on:
+      - aui-eureka
 
   aui-frontend:
     image: aui-frontend:1.0.0
@@ -59,6 +104,8 @@ services:
       API_URL: http://aui-gateway:8080/api
     ports:
       - "4200:80"
+    depends_on:
+      - aui-eureka
 volumes:
   mysql-container-exercises-volume:
   mysql-container-trainings-volume:

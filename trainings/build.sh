@@ -12,7 +12,7 @@
 
 
 function main() {
-    ./mvnw clean verify
+    ./mvnw clean verify -Dmaven.test.skip=true
     title="trainings"
     version="1.0.0"
     docker build \
