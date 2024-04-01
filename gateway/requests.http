@@ -3,7 +3,7 @@
 ### === Exercises
 
 ### Get all exercises
-GET http://localhost:8084/api/exercises
+GET http://localhost:8080/api/exercises
 
 ### Get exercise
 GET http://localhost:8084/api/exercises/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
