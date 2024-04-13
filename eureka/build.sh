@@ -13,7 +13,7 @@
 
 function main() {
     ./mvnw clean verify -Dmaven.test.skip=true
-    title="gateway"
+    title="eureka"
     version="1.0.0"
     docker build \
       --label "org.opencontainers.image.created=$(date +%Y-%m-%dT%H:%M:%S%:z)" \
