@@ -56,7 +56,6 @@ services:
     volumes:
       - mysql-container-trainings-volume:/var/lib/mysql
 
-
   aui-trainings:
     image: trainings:1.0.0
     restart: always
@@ -106,6 +105,7 @@ services:
       - "4200:80"
     depends_on:
       - aui-eureka
+      
 volumes:
   mysql-container-exercises-volume:
   mysql-container-trainings-volume:
